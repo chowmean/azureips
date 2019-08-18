@@ -1,6 +1,6 @@
 import requests
 import sys
-from azureips.utilities import RateLimitException, AzureAPIException, AuthException, ResourceNotFound
+from . import RateLimitException, AzureAPIException, AuthException, ResourceNotFound
 
 class AzureAPI():
 

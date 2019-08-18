@@ -25,16 +25,15 @@ CLASSIFIERS = [
 
 # Read version properties file and extract version number.
 def get_version():
-    version = "0.1.4"
     try:
         with open(VER_PROP_FILE) as f:
             for line in f.readlines():
                 if line.startswith("version="):
                     version = line.lstrip('version=').strip()
-                    break
+                    return version
     except IOError as ioe:
         print(ioe, file=sys.stderr)
-    return version
+
 
 
 # Read requirements.txt file and extract the list of dependency.
@@ -56,7 +55,7 @@ if __name__ == '__main__':
         readme = f.read()
 
     setuptools.setup(
-        name="azureIPs",
+        name="azureips",
         version=get_version(),
         description="azureIPs: Gives unallocated Azure ips. ",
         author="chowmean",
@@ -64,7 +63,8 @@ if __name__ == '__main__':
         url="https://github.com/chowmean/azureips",
         keywords=["azureips","azure","network_interface_ips"],
         install_requires=get_install_requirements(),
-        packages=["azureIPs", ],
+        packages=["azureips","azureips.utilities"],
+        package_data={'': ['LICENSE','requirements.txt','version.properties']},
         classifiers=CLASSIFIERS,
         long_description=readme,
         long_description_content_type="text/markdown",

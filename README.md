@@ -8,11 +8,11 @@ Creating Network interfaces with dynamic ip is easy but for static ip address yo
 
 ## Usage and how it works.
 
-This package works in both CLI manner and you can import it to use it with your python program.
+### Installation
 
-### CLI Application:
+```pip install azureips```
 
-```python azureips/azureipselector.py --client_id client_id --client_secret client_secret --subscription_id subscription_id --tenant_id tenant_id --subnet subnet_name --vnet vnet_name --resource_group resource_group_vnet --count no_of_ip_you_need```
+You can import it to use it with your python program.
 
 ### Importing in python application
 

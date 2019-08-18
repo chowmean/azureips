@@ -29,15 +29,25 @@ This will return an array of ips
 ### Options
 
 `client_id` : Client id of the app generated in service principle
+
 `client_secret` : Client Secret obtained from app
+
 `subscription_id`
+
 `tenant_id`
+
 `token_url`: Not required
+
 `base_url`: Not required
+
 `api_version`: Not required
+
 `subnet`: Subnet to search for unallocated IP
+
 `vnet`: Vnet to which the subnet belongs
+
 `resource_group`: Resource group in which vnet is present
+
 `count`: Number of IPs that you want as output
 
 

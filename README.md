@@ -21,6 +21,7 @@ from azureips.vacant_ips import VacantIP
 vacant_ips = VacantIP(client_id, client_secret, subscription_id, tenant_id,
                  token_url, base_url, api_version, subnet, vnet, resource_group, count)
 vacant_ips.get_vacant_ips()
+#base_url, api_version and token_url can be empty strings.
 ```
 
 This will return an array of ips

@@ -1,5 +1,5 @@
-from .utilities.azure_apis import AzureAPI
-from .utilities.ip_address_utils import generate_next_ip
+from utilities.azure_apis import AzureAPI
+from utilities.ip_address_utils import generate_next_ip
 class VacantIP():
     def __init__(self, client_id, client_secret, subscription_id, tenant_id,
                  token_url, base_url, api_version, subnet, vnet, resource_group, count):

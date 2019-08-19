@@ -49,24 +49,30 @@ class AzureAPI():
         list_ips = []
         headers = self.get_auth_headers()
         subnet = self.get_address_space_for_subnet(headers)
-        content = requests.get(url=self.network_interface_url, headers=headers)
-        if content.status_code == 200:
-            nics = content.json()
-            for nic in nics["value"]:
-                for ip in nic["properties"]["ipConfigurations"]:
-                    if ip["properties"]["subnet"]["id"] == subnet["id"]:
-                        list_ips.append(ip["properties"]["privateIPAddress"])
-            return {"ips":list_ips, "address_space":subnet["address_space"]}
-        elif content.status_code == 429:
-            raise (RateLimitException("Azure Apis Rate Limited"))
-            sys.exit(1)
-        elif content.status_code == 403:
-            raise (AuthException)
-        elif content.status_code==404:
-            raise(ResourceNotFound())
-        else:
-            raise (AzureAPIException())
-            sys.exit(1)
+        url = self.network_interface_url
+        while True:
+            content = requests.get(url=url, headers=headers)
+            if content.status_code == 200:
+                nics = content.json()
+                for nic in nics["value"]:
+                    for ip in nic["properties"]["ipConfigurations"]:
+                        if ip["properties"]["subnet"]["id"] == subnet["id"]:
+                            list_ips.append(ip["properties"]["privateIPAddress"])
+                if "nextLink" in nics:
+                    url = nics["nextLink"]
+                else:
+                    break
+            elif content.status_code == 429:
+                raise (RateLimitException("Azure Apis Rate Limited"))
+                sys.exit(1)
+            elif content.status_code == 403:
+                raise (AuthException)
+            elif content.status_code==404:
+                raise(ResourceNotFound())
+            else:
+                raise (AzureAPIException())
+                sys.exit(1)
+        return {"ips": list_ips, "address_space": subnet["address_space"]}
 
     def get_address_space_for_subnet(self, headers):
         content = requests.get(url=self.subnet_url, headers=headers)
